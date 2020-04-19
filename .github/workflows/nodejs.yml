@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: rm -rf blog/_posts
-    - run: ls blog && ls blog/_posts
+    - run: ls blog
     - uses: actions/checkout@v2
       with:
         respository: leuction/blog
