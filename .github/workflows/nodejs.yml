@@ -1,0 +1,44 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  repository_dispatch:
+    types: [ build_application ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Build website
+      run: npm run build
+    - name: Netlify Actions
+      uses: nwtgck/actions-netlify@v1.0.12
+      with:
+        # Publish directory
+        publish-dir: "/blog/.vuepress/dist"
+        # Custom deploy message for Netlify
+        deploy-message: Deploy from GitHub Actions"
+        # GitHub token
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        # Production branch
+        production-branch: master
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
