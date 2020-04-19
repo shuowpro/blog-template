@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ master ]
   repository_dispatch:
-    types: [ build_application ]
+    types: [ build-blog ]
 
 jobs:
   build:
