@@ -25,7 +25,7 @@ jobs:
     - run: rm -rf blog/_posts
     - uses: actions/checkout@v2
       with:
-        respository: leuction/blog
+        repository: leuction/blog
         token: ${{ secrets.LEUCTION_GITHUB_PAT }}
         path: leuction/blog
     - run: mkdir -p blog/_posts
@@ -52,5 +52,3 @@ jobs:
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v2
