@@ -30,11 +30,15 @@ jobs:
       run: npm install
     - name: Build website
       run: npm run build
+    - run: pwd
+    - run: ls
+    - run: cd blog && ls
+    - run: cd blog/.vuepress && ls
     - name: Netlify Actions
       uses: nwtgck/actions-netlify@v1.0.12
       with:
         # Publish directory
-        publish-dir: "/blog/.vuepress/dist"
+        publish-dir: "blog/.vuepress/dist"
         # Custom deploy message for Netlify
         deploy-message: Deploy from GitHub Actions"
         # GitHub token
