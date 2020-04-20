@@ -28,8 +28,14 @@ jobs:
         repository: leuction/blog
         token: ${{ secrets.LEUCTION_GITHUB_PAT }}
         path: leuction/blog
+    - uses: actions/checkout@v2
+      with:
+        repository: seraphlive/my-article
+        token: ${{ secrets.SERAPHLIVE_GITHUB_PAT }}
+        path: seraphlive/my-article
     - run: mkdir -p blog/_posts
     - run: cp -r leuction/blog/* blog/_posts/
+    - run: cp -r seraphlive/my-article/public/* blog/_posts/
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
