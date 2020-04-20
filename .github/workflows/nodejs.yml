@@ -22,6 +22,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        persist-credentials: false
     - run: rm -rf blog/_posts
 #     - uses: actions/checkout@v2
 #       with:
