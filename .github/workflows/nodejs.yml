@@ -28,11 +28,13 @@ jobs:
         repository: leuction/blog
         token: ${{ secrets.LEUCTION_GITHUB_PAT }}
         path: leuction/blog
+        persist-credentials: false
     - uses: actions/checkout@v2
       with:
         repository: seraphlive/my-article
         token: ${{ secrets.SERAPHLIVE_GITHUB_PAT }}
         path: seraphlive/my-article
+        persist-credentials: false
     - run: mkdir -p blog/_posts
     - run: cp -r leuction/blog/* blog/_posts/
     - run: cp -r seraphlive/my-article/public/* blog/_posts/
