@@ -13,6 +13,7 @@ on:
 
 jobs:
   build:
+    name: Build
 
     runs-on: macos-latest
 
@@ -48,17 +49,27 @@ jobs:
       run: npm install
     - name: Build website
       run: npm run build
-    - name: Netlify Actions
-      uses: nwtgck/actions-netlify@v1.0.12
+    - name: Archive Production Artifact
+      uses: actions/upload-artifact@master
       with:
-        # Publish directory
-        publish-dir: "blog/.vuepress/dist"
-        # Custom deploy message for Netlify
-        deploy-message: Deploy from GitHub Actions"
-        # GitHub token
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        # Production branch
-        production-branch: master
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        name: ./blog/.vuepress/dist
+        path: ./blog/.vuepress/dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: ./blog/.vuepress/dist
+          path: ./blog/.vuepress/dist
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
