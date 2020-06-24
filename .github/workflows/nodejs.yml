@@ -52,21 +52,39 @@ jobs:
     - name: Archive Production Artifact
       uses: actions/upload-artifact@master
       with:
-        name: ./blog/.vuepress/dist
+        name: dist
         path: ./blog/.vuepress/dist
+    - name: Archive Production Artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: firebase.json
+        path: ./firebase.json
+    - name: Archive Production Artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: .firebaserc
+        path: ./.firebaserc
 
   deploy:
     name: Deploy
     needs: build
     runs-on: macos-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: ./blog/.vuepress/dist
+          name: dist
           path: ./blog/.vuepress/dist
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: firebase.json
+          path: ./firebase.json
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: .firebaserc
+          path: ./.firebaserc
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
