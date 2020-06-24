@@ -54,43 +54,28 @@ jobs:
       with:
         name: dist
         path: ./blog/.vuepress/dist
-    - name: Archive Production Artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: firebase.json
-        path: ./firebase.json
-    - name: Archive Production Artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: .firebaserc
-        path: ./.firebaserc
 
   deploy:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          persist-credentials: false
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
           name: dist
           path: ./blog/.vuepress/dist
-      # - name: Download Artifact
-      #   uses: actions/download-artifact@master
-      #   with:
-      #     name: firebase.json
-      #     path: ./firebase.json
-      # - name: Download Artifact
-      #   uses: actions/download-artifact@master
-      #   with:
-      #     name: .firebaserc
-      #     path: ./.firebaserc
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
+      - name: Netlify Actions
+        uses: nwtgck/actions-netlify@v1.0.12
         with:
-          args: deploy --only hosting
+          # Publish directory
+          publish-dir: "blog/.vuepress/dist"
+          # Custom deploy message for Netlify
+          deploy-message: Deploy from GitHub Actions"
+          # GitHub token
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Production branch
+          production-branch: master
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
