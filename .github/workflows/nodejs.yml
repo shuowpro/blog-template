@@ -70,21 +70,24 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
           name: dist
           path: ./blog/.vuepress/dist
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: firebase.json
-          path: ./firebase.json
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: .firebaserc
-          path: ./.firebaserc
+      # - name: Download Artifact
+      #   uses: actions/download-artifact@master
+      #   with:
+      #     name: firebase.json
+      #     path: ./firebase.json
+      # - name: Download Artifact
+      #   uses: actions/download-artifact@master
+      #   with:
+      #     name: .firebaserc
+      #     path: ./.firebaserc
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
