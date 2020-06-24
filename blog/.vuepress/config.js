@@ -29,11 +29,11 @@ module.exports = {
       contact: [
         {
           type: 'github',
-          link: 'https://github.com/ulivz',
+          link: 'https://github.com/leuction',
         },
         {
           type: 'twitter',
-          link: 'https://twitter.com/_ulivz',
+          link: 'https://twitter.com/wsha8',
         },
       ],
       copyright: [
@@ -47,5 +47,14 @@ module.exports = {
         },
       ],
     },
+    comment: {
+      service: "vssue",
+      autoCreateIssue: true,
+      prefix: "[Post]",
+      owner: "leuction",
+      repo: "blog-template",
+      clientId: "3a23a9541b4ffb5433ee",
+      clientSecret: "adf2d190536b3157ec30da7d38370f10df7acc01",
+    }
   },
 }
