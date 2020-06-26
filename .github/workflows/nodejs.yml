@@ -39,8 +39,8 @@ jobs:
         path: seraphlive/my-article
         persist-credentials: false
     - run: mkdir -p blog/_posts
-    - run: cp -r leuction/blog/* blog/_posts/ 2>/dev/null || :
-    - run: cp -r seraphlive/my-article/public/* blog/_posts/ 2>/dev/null || :
+    - run: cp -r leuction/blog/* blog/_posts/ 2>/dev/null || true
+    - run: cp -r seraphlive/my-article/public/* blog/_posts/ 2>/dev/null || true
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
