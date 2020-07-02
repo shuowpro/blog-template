@@ -14,11 +14,11 @@ module.exports = {
      */
     nav: [
       {
-        text: 'Blog',
+        text: '文章',
         link: '/',
       },
       {
-        text: 'Tags',
+        text: '标签',
         link: '/tag/',
       },
     ],
